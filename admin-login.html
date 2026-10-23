@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Acesso administrativo do site Verão Fit."
+  >
+
+  <title>Área Administrativa | Verão Fit</title>
+
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" href="data:,">
+</head>
+
+<body class="admin-login-page">
+
+  <main class="admin-login-card">
+
+    <div class="admin-login-brand">
+      <div class="admin-brand-icon">☀️</div>
+
+      <div class="admin-brand">
+        Verão Fit
+        <small>PAINEL ADMINISTRATIVO</small>
+      </div>
+    </div>
+
+    <span class="admin-eyebrow">ACESSO RESTRITO</span>
+
+    <h1>Bem-vinda de volta!</h1>
+
+    <p>
+      Entre com sua conta administrativa para gerenciar
+      as configurações do seu site.
+    </p>
+
+    <form id="login-form" class="admin-form">
+
+      <div class="admin-field">
+        <label for="email">E-mail administrativo</label>
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Digite seu e-mail"
+          autocomplete="username"
+          required
+        >
+      </div>
+
+      <div class="admin-field">
+        <label for="password">Senha</label>
+
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Digite sua senha"
+          autocomplete="current-password"
+          required
+        >
+      </div>
+
+      <div
+        id="login-message"
+        class="admin-alert"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
+
+      <button
+        type="submit"
+        class="admin-button"
+      >
+        Entrar no painel →
+      </button>
+
+    </form>
+
+    <a href="index.html" class="admin-back-link">
+      ← Voltar para o site
+    </a>
+
+    <div class="admin-login-footnote">
+      Acesso exclusivo à administração do Verão Fit.
+    </div>
+
+  </main>
+
+  <script type="module" src="js/admin-login.js"></script>
+
+</body>
+</html>
