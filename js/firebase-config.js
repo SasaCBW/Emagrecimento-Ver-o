@@ -15,18 +15,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-if (typeof window !== "undefined") {
-  isSupported()
-    .then((supported) => {
-      if (supported) {
-        return getAnalytics(app);
-      }
-    })
-    .catch((error) => {
-      console.warn("Analytics não está disponível:", error);
-    });
-}
+isSupported()
+  .then((supported) => {
+    if (supported) {
+      getAnalytics(app);
+    }
+  })
+  .catch((error) => {
+    console.warn("Analytics indisponível:", error);
+  });
 
 export { app, auth, firebaseConfig };
 
-export const adminEmail = "COLOQUE_SEU_EMAIL_ADMIN";
+export const adminEmail = "saracbwendling@gmail.com";
