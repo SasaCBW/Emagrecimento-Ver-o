@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Administrativo | Verão Fit</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+  <main class="login-wrap">
+
+    <a class="logo login-logo" href="index.html">
+      <span>☼</span>
+      <b>Verão <i>Fit</i><small>ÁREA ADMINISTRATIVA</small></b>
+    </a>
+
+    <section class="login-card">
+
+      <div class="login-icon">🔐</div>
+
+      <label>ACESSO RESTRITO</label>
+      <h1>Bem-vinda de volta!</h1>
+
+      <p>Entre com sua conta administrativa autorizada.</p>
+
+      <form id="login-form">
+
+        <label for="email">E-mail administrativo</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="seuemail@exemplo.com"
+          autocomplete="username"
+          required
+        >
+
+        <label for="password">Senha</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Sua senha"
+          autocomplete="current-password"
+          required
+        >
+
+        <button class="btn full" type="submit">
+          ENTRAR NO PAINEL →
+        </button>
+
+        <p id="login-message" role="status"></p>
+
+      </form>
+
+      <a class="back-link" href="index.html">
+        ← Voltar para o site
+      </a>
+
+    </section>
+
+    <small class="login-foot">
+      Acesso administrativo protegido por autenticação.
+    </small>
+
+  </main>
+
+  <script type="module" src="js/admin-login.js"></script>
+
+</body>
+</html>
