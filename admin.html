@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Painel Administrativo | Verão Fit</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body class="dashboard-body">
+
+  <header class="dash-header">
+
+    <a class="logo" href="index.html">
+      <span>☼</span>
+      <b>Verão <i>Fit</i><small>PAINEL ADMINISTRATIVO</small></b>
+    </a>
+
+    <button id="logout" class="btn btn-mini">
+      SAIR DA CONTA ↗
+    </button>
+
+  </header>
+
+  <main class="dashboard">
+
+    <div class="dash-welcome">
+      <label>VISÃO GERAL</label>
+
+      <h1>Seu espaço de gestão.</h1>
+
+      <p>
+        Gerencie o nome do produto, a descrição, os preços,
+        os bônus e o link de pagamento.
+      </p>
+    </div>
+
+    <div class="dash-grid">
+
+      <aside class="dash-nav">
+
+        <button class="tab active" data-tab="course">
+          📚 Curso e oferta
+        </button>
+
+        <button class="tab" data-tab="contact">
+          🔗 Checkout e contato
+        </button>
+
+        <a href="index.html" target="_blank">
+          ↗ Ver site público
+        </a>
+
+      </aside>
+
+      <section class="editor-panel">
+
+        <form id="settings-form">
+
+          <div class="panel-head">
+            <h2 id="panel-title">Curso e oferta</h2>
+            <span class="status-pill">EDIÇÃO</span>
+          </div>
+
+          <div class="form-section" data-section="course">
+
+            <label for="course-title">Nome do produto</label>
+            <input
+              id="course-title"
+              name="courseTitle"
+              maxlength="80"
+              value="Verão Fit"
+            >
+
+            <label for="course-description">Descrição</label>
+            <textarea
+              id="course-description"
+              name="courseDescription"
+              rows="4"
+              maxlength="350"
+            >Um programa digital com orientações práticas para organizar hábitos, alimentação equilibrada e movimento no seu ritmo.</textarea>
+
+            <div class="two-col">
+
+              <div>
+                <label for="price">Preço atual (R$)</label>
+                <input
+                  id="price"
+                  name="price"
+                  value="29,90"
+                >
+              </div>
+
+              <div>
+                <label for="old-price">Preço de referência (R$)</label>
+                <input
+                  id="old-price"
+                  name="oldPrice"
+                  value="97,00"
+                >
+              </div>
+
+            </div>
+
+            <label for="offer-label">Texto da oferta</label>
+            <input
+              id="offer-label"
+              name="offerLabel"
+              value="Condição de lançamento"
+            >
+
+            <label for="bonus-text">Bônus (um por linha)</label>
+            <textarea
+              id="bonus-text"
+              name="bonusText"
+              rows="4"
+            >Planner semanal
+Guia de ideias de refeições
+Calendário de autocuidado</textarea>
+
+          </div>
+
+          <div class="form-section hidden" data-section="contact">
+
+            <label for="checkout-url">Link de pagamento</label>
+            <input
+              id="checkout-url"
+              name="checkoutUrl"
+              type="url"
+              placeholder="https://..."
+            >
+
+            <small>
+              Cole o link oficial do checkout da sua plataforma de vendas.
+            </small>
+
+            <label for="contact-email">E-mail de atendimento</label>
+            <input
+              id="contact-email"
+              name="contactEmail"
+              type="email"
+              placeholder="contato@seudominio.com"
+            >
+
+            <label for="offer-notice">Aviso da oferta</label>
+            <input
+              id="offer-notice"
+              name="offerNotice"
+              maxlength="140"
+              placeholder="Ex.: Oferta válida até uma data real"
+            >
+
+          </div>
+
+          <div class="form-actions">
+
+            <button class="btn" type="submit">
+              SALVAR CONFIGURAÇÕES ✓
+            </button>
+
+            <button
+              class="btn btn-outline"
+              type="button"
+              id="reset-settings"
+            >
+              RESTAURAR PADRÃO
+            </button>
+
+          </div>
+
+          <p id="save-message" role="status"></p>
+
+        </form>
+
+      </section>
+
+    </div>
+
+    <section class="security-note">
+      <b>🔐 Segurança:</b>
+      configure a autenticação do Firebase antes de publicar o painel.
+      As alterações desta versão ficam salvas apenas no navegador utilizado.
+    </section>
+
+  </main>
+
+  <script type="module" src="js/admin.js"></script>
+
+</body>
+</html>
