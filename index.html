@@ -3,417 +3,947 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ff4f68">
 
-  <title>Verão Fit | Cursos e Bem-estar</title>
+  <meta
+    name="description"
+    content="Conheça o Verão Fit: um guia prático para organizar hábitos equilibrados, cuidar do bem-estar e aproveitar o verão com mais disposição."
+  >
+
+  <meta name="theme-color" content="#123c32">
+
+  <title>Verão Fit | Hábitos equilibrados para o verão</title>
 
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:,">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 </head>
 
 <body>
 
-  <div class="topline">
-    ☀️ VERÃO FIT · UM PASSO DE CADA VEZ
+  <!-- BARRA SUPERIOR -->
+  <div class="announcement-bar">
+    <p>
+      ☀️ Seu próximo passo para uma rotina mais equilibrada começa aqui.
+    </p>
   </div>
 
-  <header class="header">
+  <!-- CABEÇALHO -->
+  <header class="site-header">
 
-    <a class="logo" href="index.html">
-      <span>☼</span>
-      <b>
-        Verão <i>Fit</i>
-        <small>CURSOS & BEM-ESTAR</small>
-      </b>
-    </a>
+    <div class="container header-container">
 
-    <nav class="nav">
-      <a href="#metodo">O método</a>
-      <a href="#conteudo">O curso</a>
-      <a href="#bonus">Bônus</a>
-      <a href="#oferta">Oferta</a>
-      <a class="btn btn-mini" href="#oferta">
-        CONHECER O CURSO ↗
+      <a href="#inicio" class="brand" aria-label="Verão Fit - Início">
+
+        <span class="brand-icon">☀</span>
+
+        <span class="brand-text">
+          VERÃO FIT
+          <small>BEM-ESTAR • EQUILÍBRIO • ROTINA</small>
+        </span>
+
       </a>
-    </nav>
+
+      <button
+        type="button"
+        id="mobile-menu-button"
+        class="mobile-menu-button"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="nav-links"
+      >
+        ☰
+      </button>
+
+      <nav id="nav-links" class="main-navigation">
+
+        <a href="#inicio">Início</a>
+
+        <a href="#beneficios">Benefícios</a>
+
+        <a href="#conteudo">Conteúdo</a>
+
+        <a href="#sobre">Sobre o guia</a>
+
+        <a href="#duvidas">Dúvidas</a>
+
+        <a href="#comprar" class="nav-cta">
+          Conhecer o guia
+          <span>→</span>
+        </a>
+
+      </nav>
+
+    </div>
 
   </header>
 
   <main>
 
-    <section class="hero" id="inicio">
+    <!-- HERO -->
+    <section class="hero-section" id="inicio">
 
-      <div class="hero-content">
+      <div class="container hero-grid">
 
-        <span class="pill">
-          SEU NOVO COMEÇO COMEÇA AQUI
-        </span>
+        <div class="hero-content">
 
-        <h1>
-          Mais leveza na rotina.<br>
-          <em>Mais cuidado com você.</em>
-        </h1>
-
-        <p>
-          Conheça o Verão Fit: um programa digital com
-          orientações práticas para organizar hábitos,
-          alimentação equilibrada e movimento no seu ritmo.
-        </p>
-
-        <div class="hero-tags">
-          <span>Plano de 7 semanas</span>
-          <span>Materiais digitais</span>
-          <span>Acesso online</span>
-        </div>
-
-        <a class="btn" href="#oferta">
-          QUERO CONHECER O VERÃO FIT →
-        </a>
-
-        <small class="note">
-          Conteúdo educativo. Resultados variam de pessoa para pessoa.
-        </small>
-
-      </div>
-
-      <div class="hero-visual">
-
-        <div class="sun"></div>
-        <div class="palm-leaf leaf-a">〰</div>
-        <div class="palm-leaf leaf-b">〰</div>
-        <div class="ocean"></div>
-        <div class="beach"></div>
-
-        <div class="sticker">
-          seu ritmo,<br>
-          <strong>seu verão!</strong> ♡
-        </div>
-
-        <div class="visual-label">
-          CUIDE DE VOCÊ<br>
-          <b>UM DIA DE CADA VEZ</b>
-        </div>
-
-      </div>
-
-    </section>
-
-    <section class="benefits">
-
-      <div>
-        <span>🌿</span>
-        <p>
-          <b>Hábitos possíveis</b>
-          <small>Passos que cabem na rotina</small>
-        </p>
-      </div>
-
-      <div>
-        <span>🥗</span>
-        <p>
-          <b>Planejamento prático</b>
-          <small>Organização sem complicação</small>
-        </p>
-      </div>
-
-      <div>
-        <span>🌞</span>
-        <p>
-          <b>Bem-estar primeiro</b>
-          <small>Constância sem pressão</small>
-        </p>
-      </div>
-
-    </section>
-
-    <section class="section" id="metodo">
-
-      <div class="section-title">
-
-        <label>O MÉTODO VERÃO FIT</label>
-
-        <h2>
-          Um plano simples para<br>
-          <em>começar com confiança.</em>
-        </h2>
-
-        <p>
-          Um caminho educativo para apoiar escolhas
-          cotidianas mais saudáveis, sem promessas milagrosas.
-        </p>
-
-      </div>
-
-      <div class="steps">
-
-        <article>
-          <span>01</span>
-          <h3>Organize</h3>
-          <p>
-            Planeje sua semana com listas e ideias práticas.
-          </p>
-        </article>
-
-        <article>
-          <span>02</span>
-          <h3>Equilibre</h3>
-          <p>
-            Conheça sugestões para variar suas refeições.
-          </p>
-        </article>
-
-        <article>
-          <span>03</span>
-          <h3>Movimente-se</h3>
-          <p>
-            Descubra opções de movimento adequadas ao seu momento.
-          </p>
-        </article>
-
-        <article>
-          <span>04</span>
-          <h3>Acompanhe</h3>
-          <p>
-            Registre seus hábitos e reconheça seu progresso.
-          </p>
-        </article>
-
-      </div>
-
-    </section>
-
-    <section class="course" id="conteudo">
-
-      <div>
-
-        <label>O PRODUTO DIGITAL</label>
-
-        <h2>
-          Verão Fit:<br>
-          <em>7 semanas de cuidado.</em>
-        </h2>
-
-        <p>
-          Materiais digitais para consultar no seu tempo
-          e usar como apoio na construção de uma rotina
-          mais organizada.
-        </p>
-
-        <ul>
-          <li>Guia de planejamento semanal</li>
-          <li>Ideias de refeições variadas</li>
-          <li>Calendário de hábitos</li>
-          <li>Rotina de movimento adaptável</li>
-        </ul>
-
-        <a class="btn btn-yellow" href="#oferta">
-          VER A OFERTA ↗
-        </a>
-
-      </div>
-
-      <div class="product-art">
-
-        <div class="book">
-          <small>GUIA DIGITAL</small>
-          <b>Verão<br>Fit</b>
-          <span>☼</span>
-          <div class="waves"></div>
-        </div>
-
-        <div class="phone">
-          <div class="speaker"></div>
-
-          <b>PLANO DA SEMANA</b>
-          <hr>
-
-          ✓ Organização<br><br>
-          ✓ Alimentação<br><br>
-          ✓ Movimento<br><br>
-          ✓ Autocuidado
-        </div>
-
-        <div class="fruit">🍊</div>
-
-      </div>
-
-    </section>
-
-    <section class="section bonus" id="bonus">
-
-      <div class="section-title">
-
-        <label>EXTRAS INCLUÍDOS</label>
-
-        <h2>
-          Um kit para facilitar<br>
-          <em>seu planejamento.</em>
-        </h2>
-
-      </div>
-
-      <div class="bonus-grid">
-
-        <article>
-          <span>📒</span>
-          <div>
-            <small>BÔNUS 01</small>
-            <h3>Planner semanal</h3>
-            <p>Organize metas, tarefas e prioridades.</p>
-          </div>
-        </article>
-
-        <article>
-          <span>🥭</span>
-          <div>
-            <small>BÔNUS 02</small>
-            <h3>Guia de ideias de refeições</h3>
-            <p>Inspirações variadas para planejar a semana.</p>
-          </div>
-        </article>
-
-        <article>
-          <span>🌼</span>
-          <div>
-            <small>BÔNUS 03</small>
-            <h3>Calendário de autocuidado</h3>
-            <p>Lembretes para reservar tempo para você.</p>
-          </div>
-        </article>
-
-      </div>
-
-    </section>
-
-    <section class="offer" id="oferta">
-
-      <div>
-
-        <label>OFERTA ESPECIAL</label>
-
-        <h2>
-          Seu próximo passo<br>
-          <em>começa aqui.</em>
-        </h2>
-
-        <p>
-          Tenha acesso ao programa digital e aos
-          materiais complementares.
-        </p>
-
-        <p class="offer-check">
-          ✓ Programa digital de 7 semanas<br>
-          ✓ Planner semanal<br>
-          ✓ Guia de ideias de refeições<br>
-          ✓ Calendário de autocuidado
-        </p>
-
-      </div>
-
-      <div class="price-card">
-
-        <span class="offer-tag">
-          CONDIÇÃO DE LANÇAMENTO
-        </span>
-
-        <p class="old">
-          Preço de referência:
-          <s>R$ 97,00</s>
-        </p>
-
-        <div class="price">
-          <small>R$</small> 29<sup>,90</sup>
-        </div>
-
-        <p class="pay-caption">
-          Pagamento único · Produto digital
-        </p>
-
-        <a class="btn full" id="buy-link" href="#contato">
-          QUERO CONHECER A OFERTA →
-        </a>
-
-        <p class="micro">
-          Configure o link de checkout real antes de vender.
-        </p>
-
-        <div class="safe">
-          🔒
-          <span>
-            <b>Compra e acesso</b>
-            <small>
-              As condições finais dependem da plataforma de pagamento.
-            </small>
+          <span class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            SEU GUIA DE BEM-ESTAR PARA O VERÃO
           </span>
+
+          <h1>
+            Um verão mais leve começa com
+            <span>pequenos hábitos.</span>
+          </h1>
+
+          <p class="hero-description" data-course-description>
+            Um guia prático para organizar sua rotina, cuidar do bem-estar
+            e desenvolver hábitos mais equilibrados sem buscar soluções
+            milagrosas.
+          </p>
+
+          <div class="hero-actions">
+
+            <a href="#comprar" class="button button-primary">
+              Quero conhecer o guia
+              <span>→</span>
+            </a>
+
+            <a href="#conteudo" class="button button-secondary">
+              Explorar conteúdo
+            </a>
+
+          </div>
+
+          <div class="hero-highlights">
+
+            <div class="hero-highlight">
+              <span class="highlight-icon">✓</span>
+
+              <span>
+                <strong>Prático</strong>
+                <small>Para o dia a dia</small>
+              </span>
+            </div>
+
+            <div class="hero-highlight">
+              <span class="highlight-icon">✓</span>
+
+              <span>
+                <strong>Equilibrado</strong>
+                <small>Sem promessas milagrosas</small>
+              </span>
+            </div>
+
+            <div class="hero-highlight">
+              <span class="highlight-icon">✓</span>
+
+              <span>
+                <strong>Organizado</strong>
+                <small>Passo a passo</small>
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- IMAGEM PRINCIPAL -->
+        <div class="hero-visual">
+
+          <div class="hero-image-frame">
+
+            <img
+              src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1100&q=85"
+              alt="Pessoa aproveitando um momento tranquilo ao ar livre"
+              class="hero-image"
+              fetchpriority="high"
+            >
+
+            <div class="hero-image-overlay"></div>
+
+            <div class="hero-image-caption">
+
+              <span class="caption-icon">☀</span>
+
+              <div>
+                <strong>Mais equilíbrio.</strong>
+                <span>Um hábito de cada vez.</span>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="floating-card floating-card-top">
+            <span class="floating-card-icon">🌿</span>
+
+            <div>
+              <strong>Rotina consciente</strong>
+              <small>Pequenas escolhas diárias</small>
+            </div>
+          </div>
+
+          <div class="floating-card floating-card-bottom">
+            <span class="floating-card-icon">💧</span>
+
+            <div>
+              <strong>Cuide de você</strong>
+              <small>Respeite seu próprio ritmo</small>
+            </div>
+          </div>
+
+          <div class="hero-decoration hero-decoration-one"></div>
+          <div class="hero-decoration hero-decoration-two"></div>
+
+        </div>
+
+      </div>
+
+      <div class="hero-bottom-decoration"></div>
+
+    </section>
+
+    <!-- FAIXA DE VALORES -->
+    <section class="values-strip" aria-label="Valores do Verão Fit">
+
+      <div class="container values-grid">
+
+        <div class="value-item">
+          <span>🌱</span>
+          <p>Hábitos sustentáveis</p>
+        </div>
+
+        <div class="value-item">
+          <span>💚</span>
+          <p>Bem-estar em primeiro lugar</p>
+        </div>
+
+        <div class="value-item">
+          <span>☀️</span>
+          <p>Rotina com mais equilíbrio</p>
+        </div>
+
+        <div class="value-item">
+          <span>🌊</span>
+          <p>Respeito ao seu ritmo</p>
         </div>
 
       </div>
 
     </section>
 
-    <section class="faq section">
+    <!-- BENEFÍCIOS -->
+    <section class="section benefits-section" id="beneficios">
 
-      <div class="section-title">
-        <label>DÚVIDAS FREQUENTES</label>
-        <h2>Quer saber mais?</h2>
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span class="section-label">
+            UMA NOVA FORMA DE SE ORGANIZAR
+          </span>
+
+          <h2>
+            Cuide da sua rotina com
+            <span>mais intenção.</span>
+          </h2>
+
+          <p>
+            O objetivo não é fazer tudo perfeitamente.
+            É encontrar práticas que façam sentido para você.
+          </p>
+
+        </div>
+
+        <div class="benefits-grid">
+
+          <article class="benefit-card">
+
+            <div class="benefit-icon icon-green">
+              🌿
+            </div>
+
+            <span class="benefit-number">01</span>
+
+            <h3>Hábitos mais conscientes</h3>
+
+            <p>
+              Aprenda a observar sua rotina e identificar pequenas
+              mudanças que podem contribuir para seu bem-estar.
+            </p>
+
+            <div class="benefit-bottom-line"></div>
+
+          </article>
+
+          <article class="benefit-card">
+
+            <div class="benefit-icon icon-orange">
+              🍊
+            </div>
+
+            <span class="benefit-number">02</span>
+
+            <h3>Organização do dia</h3>
+
+            <p>
+              Descubra maneiras práticas de organizar suas atividades,
+              suas pausas e seus momentos de descanso.
+            </p>
+
+            <div class="benefit-bottom-line"></div>
+
+          </article>
+
+          <article class="benefit-card">
+
+            <div class="benefit-icon icon-blue">
+              💧
+            </div>
+
+            <span class="benefit-number">03</span>
+
+            <h3>Autocuidado possível</h3>
+
+            <p>
+              Conheça ideias simples para incluir hidratação,
+              descanso e movimento respeitando suas necessidades.
+            </p>
+
+            <div class="benefit-bottom-line"></div>
+
+          </article>
+
+          <article class="benefit-card">
+
+            <div class="benefit-icon icon-pink">
+              💗
+            </div>
+
+            <span class="benefit-number">04</span>
+
+            <h3>Mais equilíbrio</h3>
+
+            <p>
+              Desenvolva uma relação mais tranquila com sua rotina,
+              sem depender de regras extremas ou cobranças.
+            </p>
+
+            <div class="benefit-bottom-line"></div>
+
+          </article>
+
+        </div>
+
       </div>
 
-      <details>
-        <summary>Como recebo o curso?</summary>
-        <p>
-          O acesso deve ser configurado na plataforma de venda escolhida.
-        </p>
-      </details>
+    </section>
 
-      <details>
-        <summary>O programa garante emagrecimento?</summary>
-        <p>
-          Não há garantia de perda de peso. O conteúdo é educativo
-          e não substitui acompanhamento individual de profissionais de saúde.
-        </p>
-      </details>
+    <!-- BANNER EDITORIAL -->
+    <section class="editorial-section" id="sobre">
 
-      <details>
-        <summary>Como falo com a equipe?</summary>
-        <p>
-          Adicione seu e-mail ou canal oficial de atendimento
-          antes de publicar o site.
-        </p>
-      </details>
+      <div class="container editorial-grid">
+
+        <div class="editorial-visual">
+
+          <img
+            src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1000&q=85"
+            alt="Ambiente tranquilo para uma pausa e momentos de autocuidado"
+            loading="lazy"
+          >
+
+          <div class="editorial-sticker">
+            <span>✦</span>
+            <strong>Seu ritmo.<br>Sua rotina.</strong>
+          </div>
+
+        </div>
+
+        <div class="editorial-content">
+
+          <span class="section-label">
+            SOBRE O VERÃO FIT
+          </span>
+
+          <h2>
+            Não é sobre perfeição.
+            <span>É sobre constância possível.</span>
+          </h2>
+
+          <p>
+            O Verão Fit foi pensado como um guia de organização de hábitos
+            para quem deseja olhar para a própria rotina com mais atenção.
+          </p>
+
+          <p>
+            A proposta é apresentar ideias práticas relacionadas ao
+            autocuidado, à hidratação, ao descanso, à alimentação variada
+            e ao movimento agradável.
+          </p>
+
+          <div class="editorial-points">
+
+            <div class="editorial-point">
+              <span>✓</span>
+              <p>Orientações claras e fáceis de consultar.</p>
+            </div>
+
+            <div class="editorial-point">
+              <span>✓</span>
+              <p>Ideias adaptáveis à realidade de cada pessoa.</p>
+            </div>
+
+            <div class="editorial-point">
+              <span>✓</span>
+              <p>Sem promessas de resultados garantidos.</p>
+            </div>
+
+          </div>
+
+          <a href="#conteudo" class="text-link">
+            Descobrir o conteúdo
+            <span>→</span>
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CONTEÚDO DO GUIA -->
+    <section class="section content-section" id="conteudo">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span class="section-label">
+            O QUE VOCÊ VAI ENCONTRAR
+          </span>
+
+          <h2>
+            Um guia para colocar
+            <span>as ideias em prática.</span>
+          </h2>
+
+          <p>
+            Explore os temas que ajudam a organizar uma rotina
+            mais consciente durante o verão.
+          </p>
+
+        </div>
+
+        <div class="content-grid">
+
+          <article class="content-card">
+
+            <div class="content-card-image image-food">
+              <img
+                src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=85"
+                alt="Refeição variada com diferentes alimentos"
+                loading="lazy"
+              >
+
+              <span class="content-card-number">01</span>
+            </div>
+
+            <div class="content-card-body">
+
+              <span class="content-category">ALIMENTAÇÃO</span>
+
+              <h3>Variedade e planejamento</h3>
+
+              <p>
+                Ideias para organizar refeições variadas e pensar
+                nas opções disponíveis no dia a dia.
+              </p>
+
+            </div>
+
+          </article>
+
+          <article class="content-card">
+
+            <div class="content-card-image image-water">
+              <img
+                src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=800&q=85"
+                alt="Água fresca para hidratação"
+                loading="lazy"
+              >
+
+              <span class="content-card-number">02</span>
+            </div>
+
+            <div class="content-card-body">
+
+              <span class="content-category">HIDRATAÇÃO</span>
+
+              <h3>Cuidados nos dias quentes</h3>
+
+              <p>
+                Maneiras de lembrar de beber água e observar
+                as necessidades do corpo, especialmente no calor.
+              </p>
+
+            </div>
+
+          </article>
+
+          <article class="content-card">
+
+            <div class="content-card-image image-movement">
+              <img
+                src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=85"
+                alt="Pessoa caminhando ao ar livre"
+                loading="lazy"
+              >
+
+              <span class="content-card-number">03</span>
+            </div>
+
+            <div class="content-card-body">
+
+              <span class="content-category">MOVIMENTO</span>
+
+              <h3>Atividade no seu ritmo</h3>
+
+              <p>
+                Formas de explorar movimentos agradáveis e
+                compatíveis com suas condições e preferências.
+              </p>
+
+            </div>
+
+          </article>
+
+          <article class="content-card">
+
+            <div class="content-card-image image-rest">
+              <img
+                src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=800&q=85"
+                alt="Espaço tranquilo para uma pausa"
+                loading="lazy"
+              >
+
+              <span class="content-card-number">04</span>
+            </div>
+
+            <div class="content-card-body">
+
+              <span class="content-category">DESCANSO</span>
+
+              <h3>Pausas e rotina de sono</h3>
+
+              <p>
+                Sugestões para organizar momentos de descanso
+                e valorizar uma rotina de sono adequada.
+              </p>
+
+            </div>
+
+          </article>
+
+        </div>
+
+        <div class="content-disclaimer">
+          <span>ℹ</span>
+
+          <p>
+            O conteúdo é educativo e não substitui orientação
+            individual de profissionais de saúde.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CHAMADA -->
+    <section class="mid-cta-section">
+
+      <div class="container mid-cta-container">
+
+        <div class="mid-cta-decoration" aria-hidden="true">
+          ✳
+        </div>
+
+        <div class="mid-cta-content">
+
+          <span class="mid-cta-label">
+            UM PASSO DE CADA VEZ
+          </span>
+
+          <h2>
+            Pequenas escolhas também
+            <span>fazem parte do cuidado.</span>
+          </h2>
+
+          <p>
+            Conheça o guia e escolha as ideias que combinam com
+            sua rotina, suas preferências e suas necessidades.
+          </p>
+
+          <a href="#comprar" class="button button-light">
+            Conhecer o Verão Fit
+            <span>→</span>
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PERGUNTAS FREQUENTES -->
+    <section class="section faq-section" id="duvidas">
+
+      <div class="container faq-container">
+
+        <div class="faq-intro">
+
+          <span class="section-label">
+            PRECISA DE AJUDA?
+          </span>
+
+          <h2>
+            Dúvidas <span>frequentes.</span>
+          </h2>
+
+          <p>
+            Confira algumas informações sobre a proposta do Verão Fit.
+          </p>
+
+          <div class="faq-side-note">
+            <span>☀</span>
+            <p>Informação clara para uma escolha consciente.</p>
+          </div>
+
+        </div>
+
+        <div class="faq-list">
+
+          <article class="faq-item active">
+
+            <button
+              type="button"
+              class="faq-question"
+              aria-expanded="true"
+            >
+              <span>O que é o Verão Fit?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <p>
+                É uma proposta de guia educativo com ideias para
+                organizar hábitos relacionados ao bem-estar,
+                à hidratação, ao descanso, à alimentação variada
+                e ao movimento.
+              </p>
+            </div>
+
+          </article>
+
+          <article class="faq-item">
+
+            <button
+              type="button"
+              class="faq-question"
+              aria-expanded="false"
+            >
+              <span>O guia promete resultados específicos?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <p>
+                Não. Cada pessoa tem necessidades e circunstâncias
+                diferentes. O guia não promete emagrecimento,
+                transformações físicas ou resultados garantidos.
+              </p>
+            </div>
+
+          </article>
+
+          <article class="faq-item">
+
+            <button
+              type="button"
+              class="faq-question"
+              aria-expanded="false"
+            >
+              <span>Posso adaptar as sugestões à minha rotina?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <p>
+                Sim. As sugestões são ideias gerais que devem ser
+                adaptadas às suas necessidades, preferências e
+                condições. Você não precisa seguir uma rotina
+                rígida para cuidar de si.
+              </p>
+            </div>
+
+          </article>
+
+          <article class="faq-item">
+
+            <button
+              type="button"
+              class="faq-question"
+              aria-expanded="false"
+            >
+              <span>Como faço para adquirir o guia?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <p>
+                Utilize o botão de acesso ao produto nesta página.
+                O administrador precisa configurar um link de
+                pagamento válido antes que a compra possa ser realizada.
+              </p>
+            </div>
+
+          </article>
+
+          <article class="faq-item">
+
+            <button
+              type="button"
+              class="faq-question"
+              aria-expanded="false"
+            >
+              <span>O guia substitui acompanhamento profissional?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <p>
+                Não. O material tem finalidade educativa e não
+                substitui consultas, diagnósticos ou orientações
+                individualizadas de profissionais qualificados.
+              </p>
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- COMPRA -->
+    <section class="purchase-section" id="comprar">
+
+      <div class="container purchase-grid">
+
+        <div class="purchase-content">
+
+          <span class="purchase-label">
+            <span class="purchase-label-dot"></span>
+            CONHEÇA O GUIA
+          </span>
+
+          <h2>
+            Comece com um plano
+            <span>que faça sentido para você.</span>
+          </h2>
+
+          <p>
+            Conheça o conteúdo do Verão Fit e avalie se ele
+            combina com o que você procura para sua rotina.
+          </p>
+
+          <div class="purchase-benefits">
+
+            <div>
+              <span>✓</span>
+              Conteúdo organizado por temas
+            </div>
+
+            <div>
+              <span>✓</span>
+              Sugestões práticas para o dia a dia
+            </div>
+
+            <div>
+              <span>✓</span>
+              Abordagem equilibrada de autocuidado
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="purchase-card">
+
+          <div class="purchase-card-top">
+            <span class="purchase-card-icon">☀</span>
+
+            <div>
+              <span class="purchase-card-kicker">
+                SEU GUIA EDUCATIVO
+              </span>
+
+              <h3 data-course-name>Verão Fit</h3>
+            </div>
+          </div>
+
+          <div class="purchase-divider"></div>
+
+          <p class="purchase-card-description" data-course-description>
+            Um guia prático para organizar hábitos mais equilibrados
+            durante o verão.
+          </p>
+
+          <div class="purchase-price-area">
+
+            <span class="purchase-price-label">
+              Valor do produto
+            </span>
+
+            <div class="purchase-price">
+              <span data-course-price>R$ 29,90</span>
+            </div>
+
+            <p class="purchase-price-note">
+              Confira as condições no checkout antes de pagar.
+            </p>
+
+          </div>
+
+          <a
+            href="#"
+            class="button button-primary purchase-button"
+            data-checkout
+          >
+            Acessar checkout
+            <span>→</span>
+          </a>
+
+          <div class="purchase-security">
+            <span>ℹ</span>
+            O link de pagamento precisa ser configurado pelo administrador.
+          </div>
+
+        </div>
+
+      </div>
 
     </section>
 
   </main>
 
-  <footer class="footer">
+  <!-- RODAPÉ -->
+  <footer class="site-footer">
 
-    <a class="logo foot-logo" href="#inicio">
-      <span>☼</span>
-      <b>
-        Verão <i>Fit</i>
-        <small>CURSOS & BEM-ESTAR</small>
-      </b>
-    </a>
+    <div class="container footer-main">
 
-    <p>
-      Mais cuidado, menos pressão.
-      Um passo de cada vez. ♡
-    </p>
+      <div class="footer-brand-column">
 
-    <div>
-      <a href="#metodo">Método</a>
-      <a href="#oferta">Oferta</a>
-      <a href="admin-login.html">Área administrativa</a>
+        <a href="#inicio" class="brand footer-brand">
+
+          <span class="brand-icon">☀</span>
+
+          <span class="brand-text">
+            VERÃO FIT
+            <small>BEM-ESTAR • EQUILÍBRIO • ROTINA</small>
+          </span>
+
+        </a>
+
+        <p>
+          Ideias educativas para organizar hábitos e valorizar
+          o autocuidado durante o verão.
+        </p>
+
+      </div>
+
+      <div class="footer-links-column">
+
+        <h3>Navegação</h3>
+
+        <a href="#inicio">Início</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#conteudo">Conteúdo</a>
+        <a href="#duvidas">Dúvidas frequentes</a>
+
+      </div>
+
+      <div class="footer-links-column">
+
+        <h3>Informações</h3>
+
+        <a href="#sobre">Sobre o guia</a>
+        <a href="#comprar">Conhecer o produto</a>
+        <a href="admin-login.html">Área administrativa</a>
+
+      </div>
+
+      <div class="footer-contact-column">
+
+        <h3>Contato</h3>
+
+        <p>
+          Entre em contato para obter informações sobre o produto.
+        </p>
+
+        <a
+          href="mailto:saracbwendling@gmail.com"
+          data-contact-link
+        >
+          <span>✉</span>
+          <span data-contact-email>
+            saracbwendling@gmail.com
+          </span>
+        </a>
+
+      </div>
+
     </div>
 
-    <small class="legal">
-      Conteúdo educativo. Não constitui orientação médica,
-      nutricional ou de treinamento individual.
-      © <span id="year"></span> Verão Fit.
-    </small>
+    <div class="footer-bottom">
+
+      <div class="container footer-bottom-content">
+
+        <p>
+          © <span id="current-year"></span> Verão Fit.
+          Todos os direitos reservados.
+        </p>
+
+        <p>
+          Conteúdo educativo de bem-estar. Sem promessas de resultados.
+        </p>
+
+      </div>
+
+    </div>
 
   </footer>
 
-  <script src="js/site.js"></script>
+  <!-- BOTÃO VOLTAR AO TOPO -->
+  <button
+    type="button"
+    id="back-to-top"
+    class="back-to-top"
+    aria-label="Voltar ao topo"
+  >
+    ↑
+  </button>
+
+  <script type="module" src="js/site.js"></script>
 
 </body>
 </html>
