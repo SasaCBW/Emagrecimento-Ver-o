@@ -9,7 +9,7 @@
     content="Painel administrativo do Verão Fit."
   >
 
-  <meta name="theme-color" content="#123c32">
+  <meta name="theme-color" content="#174c36">
 
   <title>Painel Administrativo | Verão Fit</title>
 
@@ -19,16 +19,16 @@
 
 <body class="admin-page" data-protected="true">
 
-  <div class="admin-layout">
+  <div class="admin-shell">
 
     <!-- MENU LATERAL -->
     <aside class="admin-sidebar">
 
-      <a href="index.html" class="admin-logo">
-        <span class="admin-logo-icon">☀</span>
+      <a href="index.html" class="admin-sidebar-brand">
+        <span class="admin-brand-icon">☀️</span>
 
-        <span class="admin-logo-text">
-          VERÃO FIT
+        <span class="admin-brand">
+          Verão Fit
           <small>PAINEL ADMINISTRATIVO</small>
         </span>
       </a>
@@ -37,25 +37,25 @@
         MENU PRINCIPAL
       </div>
 
-      <nav class="admin-navigation">
+      <nav class="admin-navigation" aria-label="Menu administrativo">
 
         <a href="#inicio" class="admin-nav-link active">
-          <span class="nav-icon">▦</span>
+          <span>▦</span>
           Visão geral
         </a>
 
         <a href="#configuracoes" class="admin-nav-link">
-          <span class="nav-icon">⚙</span>
+          <span>⚙</span>
           Configurações
         </a>
 
-        <a href="#pagamento" class="admin-nav-link">
-          <span class="nav-icon">R$</span>
-          Pagamento
+        <a href="#produto" class="admin-nav-link">
+          <span>◇</span>
+          Produto e preços
         </a>
 
         <a href="#contato" class="admin-nav-link">
-          <span class="nav-icon">✉</span>
+          <span>✉</span>
           Contato
         </a>
 
@@ -72,311 +72,385 @@
           </div>
         </div>
 
-        <a href="index.html" class="admin-sidebar-site-link">
-          ↗ Visualizar site
+        <a href="index.html" class="admin-back-link">
+          ← Voltar para o site
         </a>
+
+        <button
+          type="button"
+          id="logout-button"
+          class="admin-logout-button"
+        >
+          ↪ Sair da conta
+        </button>
 
       </div>
 
     </aside>
 
     <!-- CONTEÚDO PRINCIPAL -->
-    <main class="admin-main">
+    <main class="admin-main" id="inicio">
 
-      <!-- CABEÇALHO -->
       <header class="admin-topbar">
 
-        <div class="admin-topbar-heading">
-          <span class="admin-breadcrumb">
-            VERÃO FIT / ADMINISTRAÇÃO
+        <div>
+          <span class="admin-eyebrow">
+            ÁREA ADMINISTRATIVA
           </span>
 
-          <h1>Painel administrativo</h1>
+          <h1>Visão geral</h1>
 
           <p>
-            Gerencie as informações e as configurações do seu site.
+            Gerencie as informações principais do seu projeto.
           </p>
         </div>
 
-        <div class="admin-topbar-actions">
+        <div class="admin-profile">
+          <div class="admin-avatar">VF</div>
 
-          <a
-            href="index.html"
-            class="admin-view-site"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ↗ Visualizar site
-          </a>
-
-          <button
-            type="button"
-            id="logout-button"
-            class="admin-logout-button"
-          >
-            Sair da conta
-          </button>
-
+          <div>
+            <strong>Administradora</strong>
+            <small id="admin-user">Verificando acesso...</small>
+          </div>
         </div>
 
       </header>
 
       <!-- BOAS-VINDAS -->
-      <section class="admin-welcome" id="inicio">
+      <section class="admin-welcome-card">
 
         <div class="admin-welcome-content">
 
-          <span class="admin-welcome-label">
-            ✦ ÁREA DE GERENCIAMENTO
+          <span class="admin-welcome-tag">
+            ☀️ SEU ESPAÇO DE GESTÃO
           </span>
 
-          <h2>Seu site, suas configurações.</h2>
+          <h2>Bem-vinda ao seu painel!</h2>
 
           <p>
-            Atualize as informações do Verão Fit e mantenha os dados
-            do seu produto organizados em um só lugar.
+            Aqui você pode atualizar as informações do Verão Fit,
+            ajustar os valores apresentados no site e configurar
+            o endereço de compra do produto.
           </p>
 
-          <a href="#configuracoes" class="admin-welcome-button">
-            Gerenciar configurações
-            <span>→</span>
+          <a href="index.html" class="admin-welcome-link">
+            Visualizar site →
           </a>
 
         </div>
 
         <div class="admin-welcome-decoration" aria-hidden="true">
-          <span class="sun-decoration">☀</span>
-          <span class="leaf-decoration leaf-one">❋</span>
-          <span class="leaf-decoration leaf-two">✦</span>
+          ☀
         </div>
 
       </section>
 
-      <!-- CARTÕES INFORMATIVOS -->
-      <section class="admin-overview">
+      <!-- INDICADORES -->
+      <section class="admin-stats-grid" aria-label="Resumo administrativo">
 
         <article class="admin-stat-card">
 
-          <div class="admin-stat-top">
-            <span class="admin-stat-icon green-icon">◈</span>
-            <span class="admin-stat-label">PRODUTO</span>
+          <div class="admin-stat-icon green">
+            ◈
           </div>
 
-          <h3 id="overview-course-name">Verão Fit</h3>
-
-          <p>Nome atual do seu produto</p>
-
-          <a href="#configuracoes">Editar informações →</a>
+          <div>
+            <span>Projeto</span>
+            <strong>Verão Fit</strong>
+            <small>Guia de bem-estar</small>
+          </div>
 
         </article>
 
         <article class="admin-stat-card">
 
-          <div class="admin-stat-top">
-            <span class="admin-stat-icon orange-icon">R$</span>
-            <span class="admin-stat-label">PREÇO</span>
+          <div class="admin-stat-icon orange">
+            R$
           </div>
 
-          <h3 id="overview-price">R$ 29,90</h3>
-
-          <p>Valor configurado para o produto</p>
-
-          <a href="#pagamento">Editar preço →</a>
+          <div>
+            <span>Preço atual</span>
+            <strong id="current-price">R$ 29,90</strong>
+            <small>Valor configurável</small>
+          </div>
 
         </article>
 
         <article class="admin-stat-card">
 
-          <div class="admin-stat-top">
-            <span class="admin-stat-icon pink-icon">✉</span>
-            <span class="admin-stat-label">CONTATO</span>
+          <div class="admin-stat-icon cream">
+            ↗
           </div>
 
-          <h3 class="admin-contact-stat" id="overview-contact">
-            E-mail cadastrado
-          </h3>
-
-          <p>Contato administrativo</p>
-
-          <a href="#contato">Editar contato →</a>
+          <div>
+            <span>Checkout</span>
+            <strong id="checkout-status">Não configurado</strong>
+            <small>Endereço de compra</small>
+          </div>
 
         </article>
+
+      </section>
+
+      <!-- AVISO -->
+      <section class="admin-information-card">
+
+        <div class="admin-information-icon">
+          ℹ
+        </div>
+
+        <div>
+          <h3>Importante sobre as alterações</h3>
+
+          <p>
+            Nesta versão, as configurações são salvas no armazenamento
+            local do navegador. Isso significa que elas não são
+            compartilhadas automaticamente com outros visitantes
+            nem com outros dispositivos.
+          </p>
+
+          <p>
+            Para atualizar o site público para todos os visitantes,
+            será necessário conectar as configurações a um banco
+            de dados compartilhado e adaptar o código da página inicial.
+          </p>
+        </div>
 
       </section>
 
       <!-- CONFIGURAÇÕES -->
-      <section class="admin-panel" id="configuracoes">
+      <section class="admin-content-section" id="configuracoes">
 
-        <div class="admin-panel-heading">
+        <div class="admin-section-heading">
 
           <div>
-            <span class="admin-section-label">
+            <span class="admin-eyebrow">
               PERSONALIZAÇÃO
             </span>
 
-            <h2>Configurações do produto</h2>
+            <h2>Configurações do site</h2>
 
             <p>
-              Edite os dados principais apresentados no painel.
+              Edite as informações utilizadas na administração.
             </p>
           </div>
 
-          <span class="admin-panel-heading-icon">⚙</span>
+          <span class="admin-section-badge">
+            ⚙ Configurações gerais
+          </span>
 
         </div>
 
-        <form id="settings-form" class="admin-form">
+        <form id="settings-form" class="admin-settings-form">
 
-          <div class="admin-form-section-title">
-            <span>01</span>
-            Informações gerais
-          </div>
+          <!-- INFORMAÇÕES GERAIS -->
+          <div class="admin-card">
 
-          <div class="admin-form-grid">
+            <div class="admin-card-heading">
 
-            <div class="admin-field">
-              <label for="courseName">
-                Nome do produto
-              </label>
+              <div class="admin-card-icon">
+                ✦
+              </div>
 
-              <input
-                type="text"
-                id="courseName"
-                name="courseName"
-                placeholder="Ex.: Verão Fit"
-                maxlength="100"
-                required
-              >
+              <div>
+                <h3>Informações gerais</h3>
 
-              <small>
-                Nome utilizado para identificar seu produto.
-              </small>
+                <p>
+                  Nome e descrição do seu projeto.
+                </p>
+              </div>
+
             </div>
 
-            <div class="admin-field">
-              <label for="contactEmail">
-                E-mail de contato
-              </label>
+            <div class="admin-form-grid">
 
-              <input
-                type="email"
-                id="contactEmail"
-                name="contactEmail"
-                placeholder="seuemail@exemplo.com"
-                required
-              >
+              <div class="admin-field">
 
-              <small>
-                E-mail informado nas configurações do produto.
-              </small>
-            </div>
+                <label for="courseName">
+                  Nome do projeto
+                </label>
 
-            <div class="admin-field admin-field-full">
-              <label for="courseDescription">
-                Descrição do produto
-              </label>
+                <input
+                  type="text"
+                  id="courseName"
+                  name="courseName"
+                  placeholder="Verão Fit"
+                  maxlength="100"
+                  required
+                >
 
-              <textarea
-                id="courseDescription"
-                name="courseDescription"
-                rows="4"
-                maxlength="1000"
-                placeholder="Descreva o conteúdo e os objetivos do seu produto."
-                required
-              ></textarea>
+              </div>
 
-              <small>
-                Use uma descrição clara, realista e informativa.
-              </small>
-            </div>
+              <div class="admin-field admin-field-full">
 
-          </div>
+                <label for="courseDescription">
+                  Descrição
+                </label>
 
-          <div class="admin-divider"></div>
+                <textarea
+                  id="courseDescription"
+                  name="courseDescription"
+                  rows="4"
+                  maxlength="500"
+                  placeholder="Descreva o propósito do seu projeto..."
+                  required
+                ></textarea>
 
-          <div class="admin-form-section-title" id="pagamento">
-            <span>02</span>
-            Preço e pagamento
-          </div>
+                <small>
+                  Escreva uma descrição clara, realista e acolhedora.
+                </small>
 
-          <div class="admin-form-grid">
+              </div>
 
-            <div class="admin-field">
-              <label for="price">
-                Preço atual (R$)
-              </label>
-
-              <input
-                type="number"
-                id="price"
-                name="price"
-                min="0"
-                max="1000000"
-                step="0.01"
-                placeholder="29.90"
-                required
-              >
-
-              <small>
-                Informe o preço atual do produto.
-              </small>
-            </div>
-
-            <div class="admin-field">
-              <label for="oldPrice">
-                Preço anterior (R$)
-              </label>
-
-              <input
-                type="number"
-                id="oldPrice"
-                name="oldPrice"
-                min="0"
-                max="1000000"
-                step="0.01"
-                placeholder="97.00"
-              >
-
-              <small>
-                Preencha somente se houver um preço anterior real.
-              </small>
-            </div>
-
-            <div class="admin-field admin-field-full">
-              <label for="checkoutUrl">
-                Link de pagamento
-              </label>
-
-              <input
-                type="url"
-                id="checkoutUrl"
-                name="checkoutUrl"
-                placeholder="https://..."
-              >
-
-              <small>
-                Cole o endereço completo do checkout do seu produto.
-              </small>
             </div>
 
           </div>
 
+          <!-- PREÇOS -->
+          <div class="admin-card" id="produto">
+
+            <div class="admin-card-heading">
+
+              <div class="admin-card-icon orange">
+                R$
+              </div>
+
+              <div>
+                <h3>Produto e preços</h3>
+
+                <p>
+                  Configure os valores apresentados na administração.
+                </p>
+              </div>
+
+            </div>
+
+            <div class="admin-form-grid">
+
+              <div class="admin-field">
+
+                <label for="price">
+                  Preço atual (R$)
+                </label>
+
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  min="0"
+                  max="999999"
+                  step="0.01"
+                  placeholder="29.90"
+                  required
+                >
+
+              </div>
+
+              <div class="admin-field">
+
+                <label for="oldPrice">
+                  Preço de referência (R$)
+                </label>
+
+                <input
+                  type="number"
+                  id="oldPrice"
+                  name="oldPrice"
+                  min="0"
+                  max="999999"
+                  step="0.01"
+                  placeholder="97.00"
+                >
+
+                <small>
+                  Use somente se houver um preço anterior verdadeiro
+                  e comprovável.
+                </small>
+
+              </div>
+
+              <div class="admin-field admin-field-full">
+
+                <label for="checkoutUrl">
+                  Link de compra
+                </label>
+
+                <input
+                  type="url"
+                  id="checkoutUrl"
+                  name="checkoutUrl"
+                  placeholder="https://..."
+                  autocomplete="url"
+                >
+
+                <small>
+                  Cole o endereço completo da página de pagamento.
+                  Deixe vazio se ainda não tiver um checkout.
+                </small>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- CONTATO -->
+          <div class="admin-card" id="contato">
+
+            <div class="admin-card-heading">
+
+              <div class="admin-card-icon">
+                ✉
+              </div>
+
+              <div>
+                <h3>Contato</h3>
+
+                <p>
+                  Endereço de e-mail para contato.
+                </p>
+              </div>
+
+            </div>
+
+            <div class="admin-form-grid">
+
+              <div class="admin-field admin-field-full">
+
+                <label for="contactEmail">
+                  E-mail de contato
+                </label>
+
+                <input
+                  type="email"
+                  id="contactEmail"
+                  name="contactEmail"
+                  placeholder="seuemail@exemplo.com"
+                  required
+                >
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- AÇÕES -->
           <div class="admin-form-actions">
 
             <button
               type="button"
               id="reset-settings"
-              class="admin-reset-button"
+              class="admin-secondary-button"
             >
               Restaurar valores iniciais
             </button>
 
             <button
               type="submit"
-              class="admin-save-button"
+              class="admin-button"
             >
-              <span>✓</span>
-              Salvar configurações
+              Salvar configurações →
             </button>
 
           </div>
@@ -393,75 +467,16 @@
 
       </section>
 
-      <!-- CONTATO -->
-      <section class="admin-panel admin-contact-panel" id="contato">
-
-        <div class="admin-panel-heading">
-
-          <div>
-            <span class="admin-section-label">
-              SUPORTE E ATENDIMENTO
-            </span>
-
-            <h2>Informações de contato</h2>
-
-            <p>
-              Confira os dados de contato cadastrados no painel.
-            </p>
-          </div>
-
-          <span class="admin-panel-heading-icon">✉</span>
-
-        </div>
-
-        <div class="admin-contact-card">
-
-          <div class="admin-contact-icon">
-            ✉
-          </div>
-
-          <div class="admin-contact-information">
-
-            <span>E-MAIL CADASTRADO</span>
-
-            <strong id="contact-email-display">
-              saracbwendling@gmail.com
-            </strong>
-
-            <p>
-              Para alterar este endereço, utilize o campo de contato
-              nas configurações do produto.
-            </p>
-
-          </div>
-
-          <a
-            href="mailto:saracbwendling@gmail.com"
-            id="contact-email-link"
-            class="admin-contact-button"
-          >
-            Abrir e-mail →
-          </a>
-
-        </div>
-
-      </section>
-
       <!-- RODAPÉ -->
       <footer class="admin-footer">
 
-        <div class="admin-footer-brand">
-          <span>☀</span>
-          <strong>VERÃO FIT</strong>
-        </div>
+        <span>
+          © <span id="admin-current-year">2026</span> Verão Fit
+        </span>
 
-        <p>
-          Painel de gerenciamento do seu site.
-        </p>
-
-        <a href="index.html">
-          Voltar para o site ↗
-        </a>
+        <span>
+          Painel administrativo
+        </span>
 
       </footer>
 
@@ -473,78 +488,23 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const form = document.querySelector("#settings-form");
+      const year = document.querySelector("#admin-current-year");
 
-      if (!form) return;
+      if (year) {
+        year.textContent = new Date().getFullYear();
+      }
 
-      const courseName = document.querySelector("#overview-course-name");
-      const price = document.querySelector("#overview-price");
-      const contact = document.querySelector("#overview-contact");
-      const contactDisplay = document.querySelector("#contact-email-display");
-      const contactLink = document.querySelector("#contact-email-link");
+      const navLinks = document.querySelectorAll(".admin-nav-link");
 
-      function formatPrice(value) {
-        const amount = Number(value);
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.forEach((item) => {
+            item.classList.remove("active");
+          });
 
-        if (!Number.isFinite(amount)) {
-          return "Não definido";
-        }
-
-        return amount.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL"
+          link.classList.add("active");
         });
-      }
-
-      function updateOverview() {
-        const nameField = form.elements.namedItem("courseName");
-        const priceField = form.elements.namedItem("price");
-        const emailField = form.elements.namedItem("contactEmail");
-
-        if (courseName && nameField) {
-          courseName.textContent = nameField.value || "Verão Fit";
-        }
-
-        if (price && priceField) {
-          price.textContent = formatPrice(priceField.value);
-        }
-
-        if (contact && emailField) {
-          contact.textContent = emailField.value || "Não definido";
-        }
-
-        if (contactDisplay && emailField) {
-          contactDisplay.textContent =
-            emailField.value || "Não definido";
-        }
-
-        if (contactLink && emailField) {
-          const email = emailField.value.trim();
-
-          contactLink.href = email ? `mailto:${email}` : "#";
-        }
-      }
-
-      form.addEventListener("input", updateOverview);
-      form.addEventListener("change", updateOverview);
-
-      try {
-        const saved = JSON.parse(
-          localStorage.getItem("veraoFitSettings") || "{}"
-        );
-
-        Object.entries(saved).forEach(([key, value]) => {
-          const field = form.elements.namedItem(key);
-
-          if (field && typeof value === "string") {
-            field.value = value;
-          }
-        });
-      } catch (error) {
-        console.warn("Não foi possível ler as configurações salvas.");
-      }
-
-      updateOverview();
+      });
     });
   </script>
 
