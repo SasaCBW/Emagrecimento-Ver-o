@@ -1,328 +1,275 @@
-import { auth, adminEmail } from "./firebase-config.js";
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  auth,
+  adminEmail
+} from "./firebase-config.js";
 
 import {
   getPublicSettings,
   savePublicSettings
 } from "./firestore-config.js";
 
-import {
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("#settings-form");
+  const logoutButton = document.querySelector("#logout-button");
+  const resetButton = document.querySelector("#reset-settings");
+  const message = document.querySelector("#save-message");
+  const adminUser = document.querySelector("#admin-user");
 
-/* =========================================
-   CONFIGURAÇÕES PADRÃO
-========================================= */
+  const fields = {
+    courseName: document.querySelector('[name="courseName"]'),
+    courseDescription: document.querySelector('[name="courseDescription"]'),
+    price: document.querySelector('[name="price"]'),
+    oldPrice: document.querySelector('[name="oldPrice"]'),
+    checkoutUrl: document.querySelector('[name="checkoutUrl"]'),
+    contactEmail: document.querySelector('[name="contactEmail"]')
+  };
 
-const defaultSettings = {
-  courseName: "Verão Fit",
-  courseDescription:
-    "Um guia prático para organizar hábitos mais equilibrados durante o verão.",
-  price: "29.90",
-  oldPrice: "97.00",
-  checkoutUrl: "",
-  contactEmail: "saracbwendling@gmail.com"
-};
+  const defaultSettings = {
+    courseName: "Verão Fit",
+    courseDescription:
+      "Um guia informativo para desenvolver hábitos saudáveis, equilíbrio e bem-estar.",
+    price: 0,
+    oldPrice: 0,
+    checkoutUrl: "",
+    contactEmail: adminEmail
+  };
 
-/* =========================================
-   ELEMENTOS DA PÁGINA
-========================================= */
+  let originalSettings = { ...defaultSettings };
+  let currentUser = null;
+  let authReady = false;
 
-const settingsForm = document.querySelector("#settings-form");
-const saveMessage = document.querySelector("#save-message");
-const logoutButton = document.querySelector("#logout-button");
-const resetButton = document.querySelector("#reset-settings");
+  function showMessage(text, type = "info") {
+    if (!message) return;
 
-let authenticatedAdmin = false;
-let loadingSettings = false;
+    message.textContent = text;
+    message.className = `save-message ${type}`;
+    message.hidden = false;
+  }
 
-/* =========================================
-   MENSAGENS
-========================================= */
+  function setFormDisabled(disabled) {
+    if (!form) return;
 
-function showMessage(message, isError = false) {
-  if (!saveMessage) return;
-
-  saveMessage.textContent = message;
-  saveMessage.classList.toggle("error", isError);
-  saveMessage.hidden = false;
-}
-
-/* =========================================
-   VALIDAR ADMINISTRADORA
-========================================= */
-
-function isAuthorizedAdmin(user) {
-  return Boolean(
-    user &&
-    user.email &&
-    user.email.toLowerCase() === adminEmail.toLowerCase()
-  );
-}
-
-/* =========================================
-   PREENCHER FORMULÁRIO
-========================================= */
-
-function fillForm(settings) {
-  if (!settingsForm) return;
-
-  Object.entries(settings).forEach(([key, value]) => {
-    const field = settingsForm.elements.namedItem(key);
-
-    if (field) {
-      field.value = value ?? "";
-    }
-  });
-
-  updateDashboard(settings);
-}
-
-/* =========================================
-   ATUALIZAR RESUMO DO PAINEL
-========================================= */
-
-function updateDashboard(settings) {
-  const priceElement = document.querySelector("#current-price");
-  const checkoutStatus = document.querySelector("#checkout-status");
-
-  if (priceElement) {
-    const price = Number(settings.price || 0);
-
-    priceElement.textContent = price.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL"
+    form.querySelectorAll("input, textarea, button").forEach((element) => {
+      if (element.id !== "logout-button") {
+        element.disabled = disabled;
+      }
     });
   }
 
-  if (checkoutStatus) {
-    checkoutStatus.textContent = settings.checkoutUrl
-      ? "Configurado"
-      : "Não configurado";
-  }
-}
-
-/* =========================================
-   CARREGAR CONFIGURAÇÕES DO FIRESTORE
-========================================= */
-
-async function loadSettings() {
-  if (!settingsForm) return;
-
-  loadingSettings = true;
-
-  try {
-    const settings = await getPublicSettings();
-
-    if (settings) {
-      fillForm({
-        ...defaultSettings,
-        ...settings,
-        price: String(settings.price ?? defaultSettings.price),
-        oldPrice: String(settings.oldPrice ?? defaultSettings.oldPrice)
-      });
-
-      showMessage("Configurações carregadas do banco de dados.");
-    } else {
-      fillForm(defaultSettings);
-
-      showMessage(
-        "Nenhuma configuração foi salva ainda. Preencha os campos e salve."
-      );
-    }
-  } catch (error) {
-    console.error("Erro ao carregar configurações:", error);
-
-    fillForm(defaultSettings);
-
-    showMessage(
-      "Não foi possível carregar o banco de dados. Verifique se o Firestore foi criado e configurado.",
-      true
-    );
-  } finally {
-    loadingSettings = false;
-  }
-}
-
-/* =========================================
-   PROTEGER A PÁGINA ADMINISTRATIVA
-========================================= */
-
-const protectedPage = document.body.dataset.protected === "true";
-
-onAuthStateChanged(auth, async (user) => {
-  if (!protectedPage) return;
-
-  if (!user) {
-    window.location.replace("admin-login.html");
-    return;
+  function readForm() {
+    return {
+      courseName: fields.courseName?.value.trim() || "",
+      courseDescription: fields.courseDescription?.value.trim() || "",
+      price: Number(fields.price?.value || 0),
+      oldPrice: Number(fields.oldPrice?.value || 0),
+      checkoutUrl: fields.checkoutUrl?.value.trim() || "",
+      contactEmail: fields.contactEmail?.value.trim() || ""
+    };
   }
 
-  if (!isAuthorizedAdmin(user)) {
-    await signOut(auth);
-    window.location.replace("admin-login.html");
-    return;
+  function fillForm(settings) {
+    Object.entries(fields).forEach(([key, element]) => {
+      if (!element) return;
+
+      const value = settings[key];
+
+      element.value = value === undefined || value === null
+        ? ""
+        : String(value);
+    });
   }
 
-  authenticatedAdmin = true;
-
-  const userElement = document.querySelector("#admin-user");
-
-  if (userElement) {
-    userElement.textContent = user.email;
-  }
-
-  document.body.classList.add("admin-authenticated");
-
-  await loadSettings();
-});
-
-/* =========================================
-   SALVAR CONFIGURAÇÕES
-========================================= */
-
-if (settingsForm) {
-  settingsForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    if (loadingSettings) {
-      showMessage(
-        "Aguarde o carregamento das configurações.",
-        true
-      );
-      return;
+  function validateSettings(settings) {
+    if (!settings.courseName) {
+      return "Informe o nome do produto.";
     }
 
-    const user = auth.currentUser;
-
-    if (!authenticatedAdmin || !isAuthorizedAdmin(user)) {
-      showMessage(
-        "Você precisa entrar com a conta administrativa autorizada.",
-        true
-      );
-      return;
+    if (!Number.isFinite(settings.price) || settings.price < 0) {
+      return "Informe um preço válido.";
     }
 
-    const formData = new FormData(settingsForm);
-    const settings = {};
-
-    for (const [key, value] of formData.entries()) {
-      settings[key] = String(value).trim();
+    if (!Number.isFinite(settings.oldPrice) || settings.oldPrice < 0) {
+      return "Informe um preço anterior válido.";
     }
 
-    const price = Number(settings.price);
-    const oldPrice = Number(settings.oldPrice || 0);
-
-    if (!Number.isFinite(price) || price < 0) {
-      showMessage("Digite um preço atual válido.", true);
-      return;
-    }
-
-    if (!Number.isFinite(oldPrice) || oldPrice < 0) {
-      showMessage("Digite um preço de referência válido.", true);
-      return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(settings.contactEmail)) {
+      return "Informe um e-mail de contato válido.";
     }
 
     if (settings.checkoutUrl) {
       try {
-        const checkout = new URL(settings.checkoutUrl);
+        const url = new URL(settings.checkoutUrl);
 
-        if (checkout.protocol !== "https:") {
-          throw new Error("O checkout precisa utilizar HTTPS.");
+        if (url.protocol !== "https:") {
+          return "O endereço de pagamento precisa começar com https://.";
         }
       } catch {
-        showMessage(
-          "Informe um endereço de checkout válido começando com https://.",
-          true
-        );
-        return;
+        return "Informe um endereço de pagamento válido.";
       }
     }
 
-    settings.price = price;
-    settings.oldPrice = oldPrice;
+    return null;
+  }
 
-    const saveButton = settingsForm.querySelector(
-      'button[type="submit"]'
-    );
-
-    if (saveButton) {
-      saveButton.disabled = true;
-      saveButton.textContent = "Salvando...";
-    }
-
-    showMessage("Salvando configurações no banco de dados...");
+  async function loadSettings() {
+    showMessage("Carregando configurações...", "info");
+    setFormDisabled(true);
 
     try {
-      await savePublicSettings(settings);
+      const settings = await getPublicSettings();
 
-      updateDashboard(settings);
+      originalSettings = {
+        ...defaultSettings,
+        ...(settings || {})
+      };
+
+      fillForm(originalSettings);
 
       showMessage(
-        "Configurações salvas no Firestore com sucesso!"
+        settings
+          ? "Configurações carregadas."
+          : "Ainda não há configurações salvas. Preencha os campos e clique em salvar.",
+        "info"
       );
     } catch (error) {
-      console.error("Erro ao salvar:", error);
+      console.error("Erro ao carregar configurações:", error);
 
       showMessage(
-        "Não foi possível salvar. Confira a conexão e as regras de segurança do Firestore.",
-        true
+        "Não foi possível carregar as configurações. Confira se o Firestore foi criado e se suas regras foram publicadas.",
+        "error"
       );
+
+      fillForm(originalSettings);
     } finally {
-      if (saveButton) {
-        saveButton.disabled = false;
-        saveButton.textContent = "Salvar configurações →";
-      }
+      setFormDisabled(!currentUser || !authReady);
     }
-  });
-}
+  }
 
-/* =========================================
-   RESTAURAR VALORES INICIAIS
-========================================= */
+  // CONFIRMA A AUTENTICAÇÃO E PROTEGE O PAINEL
+  onAuthStateChanged(auth, async (user) => {
+    authReady = true;
 
-if (resetButton && settingsForm) {
-  resetButton.addEventListener("click", () => {
-    const user = auth.currentUser;
-
-    if (!authenticatedAdmin || !isAuthorizedAdmin(user)) {
-      showMessage(
-        "Entre com a conta administrativa para continuar.",
-        true
-      );
+    if (!user) {
+      window.location.replace("admin-login.html");
       return;
     }
 
-    const confirmed = window.confirm(
-      "Deseja restaurar os valores iniciais? Será necessário salvar para atualizar o banco de dados."
-    );
+    if (
+      !user.email ||
+      user.email.toLowerCase() !== adminEmail.toLowerCase()
+    ) {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        console.error("Erro ao encerrar sessão não autorizada:", error);
+      }
 
-    if (!confirmed) return;
-
-    fillForm(defaultSettings);
-
-    showMessage(
-      "Valores iniciais preenchidos. Clique em Salvar configurações para gravá-los."
-    );
-  });
-}
-
-/* =========================================
-   SAIR DO PAINEL
-========================================= */
-
-if (logoutButton) {
-  logoutButton.addEventListener("click", async () => {
-    try {
-      await signOut(auth);
       window.location.replace("admin-login.html");
-    } catch (error) {
-      console.error("Erro ao sair:", error);
+      return;
+    }
+
+    currentUser = user;
+
+    if (adminUser) {
+      adminUser.textContent = user.email;
+    }
+
+    await loadSettings();
+  });
+
+  // SALVAR CONFIGURAÇÕES
+  if (form) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!currentUser) {
+        showMessage("Entre na conta administrativa antes de salvar.", "error");
+        return;
+      }
+
+      const settings = readForm();
+      const validationError = validateSettings(settings);
+
+      if (validationError) {
+        showMessage(validationError, "error");
+        return;
+      }
+
+      const submitButton = form.querySelector('[type="submit"]');
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Salvando...";
+      }
+
+      showMessage("Salvando alterações...", "info");
+
+      try {
+        await savePublicSettings(settings);
+
+        originalSettings = { ...settings };
+
+        showMessage("Configurações salvas com sucesso!", "success");
+      } catch (error) {
+        console.error("Erro ao salvar configurações:", error);
+
+        let errorMessage =
+          "Não foi possível salvar. Confira as regras do Firestore e tente novamente.";
+
+        if (error.code === "permission-denied") {
+          errorMessage =
+            "Acesso negado pelo Firestore. Confira se o e-mail administrativo e as regras estão corretos.";
+        } else if (error.code === "unavailable") {
+          errorMessage =
+            "O Firestore está indisponível no momento. Tente novamente mais tarde.";
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+
+        showMessage(errorMessage, "error");
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = "Salvar configurações";
+        }
+      }
+    });
+  }
+
+  // RESTAURAR OS VALORES CARREGADOS
+  if (resetButton) {
+    resetButton.addEventListener("click", () => {
+      fillForm(originalSettings);
 
       showMessage(
-        "Não foi possível sair da conta. Tente novamente.",
-        true
+        "Os campos voltaram aos últimos valores carregados. Para desfazer alterações salvas, clique em salvar.",
+        "info"
       );
-    }
-  });
-}
+    });
+  }
+
+  // SAIR DO PAINEL
+  if (logoutButton) {
+    logoutButton.addEventListener("click", async () => {
+      logoutButton.disabled = true;
+      logoutButton.textContent = "Saindo...";
+
+      try {
+        await signOut(auth);
+        window.location.replace("admin-login.html");
+      } catch (error) {
+        console.error("Erro ao sair:", error);
+
+        showMessage("Não foi possível encerrar a sessão.", "error");
+
+        logoutButton.disabled = false;
+        logoutButton.textContent = "Sair";
+      }
+    });
+  }
+});
