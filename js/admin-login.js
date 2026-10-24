@@ -1,96 +1,82 @@
-import { auth, adminEmail } from "./firebase-config.js";
-
 import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-/* =========================================
-   ELEMENTOS DO FORMULÁRIO
-========================================= */
+import {
+  auth,
+  adminEmail
+} from "./firebase-config.js";
 
-const form = document.querySelector("#login-form");
-const message = document.querySelector("#login-message");
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.querySelector("#login-form");
+  const emailInput = document.querySelector("#email");
+  const passwordInput = document.querySelector("#password");
+  const message = document.querySelector("#login-message");
+  const submitButton = loginForm?.querySelector('button[type="submit"]');
 
-const emailInput = document.querySelector("#email");
-const passwordInput = document.querySelector("#password");
+  function showMessage(text, type = "error") {
+    if (!message) return;
 
-const submitButton = form
-  ? form.querySelector('button[type="submit"]')
-  : null;
-
-/* =========================================
-   MOSTRAR MENSAGENS
-========================================= */
-
-function showMessage(text, isError = false) {
-  if (!message) return;
-
-  message.textContent = text;
-  message.hidden = false;
-  message.classList.toggle("error", isError);
-}
-
-/* =========================================
-   VERIFICAR AUTORIZAÇÃO
-========================================= */
-
-function isAuthorized(user) {
-  return Boolean(
-    user &&
-    user.email &&
-    user.email.toLowerCase() === adminEmail.toLowerCase()
-  );
-}
-
-/* =========================================
-   VERIFICAR SESSÃO EXISTENTE
-========================================= */
-
-onAuthStateChanged(auth, async (user) => {
-  if (!user) return;
-
-  if (isAuthorized(user)) {
-    window.location.replace("admin.html");
-    return;
+    message.textContent = text;
+    message.className = `login-message ${type}`;
+    message.hidden = false;
   }
 
-  try {
-    await signOut(auth);
-  } catch (error) {
-    console.error("Não foi possível encerrar a sessão:", error);
+  function setLoading(loading) {
+    if (!submitButton) return;
+
+    submitButton.disabled = loading;
+    submitButton.textContent = loading
+      ? "Verificando acesso..."
+      : "Entrar no painel";
   }
 
-  showMessage(
-    "Esta conta não está autorizada a acessar o painel administrativo.",
-    true
-  );
-});
+  // VERIFICA SE JÁ EXISTE UMA SESSÃO
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
 
-/* =========================================
-   PROCESSAR LOGIN
-========================================= */
-
-if (form && emailInput && passwordInput && submitButton) {
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
-
-    if (!email || !password) {
-      showMessage(
-        "Preencha o e-mail e a senha para continuar.",
-        true
-      );
+    if (
+      user.email &&
+      user.email.toLowerCase() === adminEmail.toLowerCase()
+    ) {
+      window.location.replace("admin.html");
       return;
     }
 
-    submitButton.disabled = true;
-    submitButton.textContent = "Verificando acesso...";
+    // Encerra uma sessão que não pertence ao administrador autorizado.
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Erro ao encerrar sessão:", error);
+    }
+  });
 
-    showMessage("Verificando seus dados...");
+  // LOGIN POR E-MAIL E SENHA
+  if (!loginForm) {
+    console.error("Formulário #login-form não encontrado.");
+    return;
+  }
+
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = emailInput?.value.trim().toLowerCase() || "";
+    const password = passwordInput?.value || "";
+
+    if (!email || !password) {
+      showMessage("Preencha o e-mail e a senha.");
+      return;
+    }
+
+    if (email !== adminEmail.toLowerCase()) {
+      showMessage("Este e-mail não está autorizado a acessar o painel.");
+      return;
+    }
+
+    setLoading(true);
+    showMessage("Verificando suas credenciais...", "info");
 
     try {
       const credential = await signInWithEmailAndPassword(
@@ -99,52 +85,65 @@ if (form && emailInput && passwordInput && submitButton) {
         password
       );
 
-      if (!isAuthorized(credential.user)) {
+      const user = credential.user;
+
+      if (
+        !user.email ||
+        user.email.toLowerCase() !== adminEmail.toLowerCase()
+      ) {
         await signOut(auth);
 
         showMessage(
-          "Este e-mail não tem autorização para administrar o site.",
-          true
+          "Esta conta não tem permissão para acessar o painel."
         );
 
         return;
       }
 
-      showMessage("Login realizado. Abrindo painel...");
+      showMessage("Login realizado. Abrindo o painel...", "success");
 
       window.location.replace("admin.html");
-
     } catch (error) {
-      console.error("Falha no login:", error.code);
+      console.error("Falha no login administrativo:", error);
 
       let errorMessage =
-        "Não foi possível entrar. Confira seu e-mail e sua senha.";
+        "Não foi possível entrar. Confira seus dados e tente novamente.";
 
-      if (
-        error.code === "auth/invalid-credential" ||
-        error.code === "auth/wrong-password" ||
-        error.code === "auth/user-not-found"
-      ) {
-        errorMessage = "E-mail ou senha incorretos.";
-      } else if (error.code === "auth/too-many-requests") {
-        errorMessage =
-          "Muitas tentativas de acesso. Aguarde um pouco e tente novamente.";
-      } else if (error.code === "auth/network-request-failed") {
-        errorMessage =
-          "Falha na conexão. Verifique sua internet e tente novamente.";
-      } else if (error.code === "auth/unauthorized-domain") {
-        errorMessage =
-          "Este domínio não está autorizado no Firebase Authentication.";
-      } else if (error.code === "auth/operation-not-allowed") {
-        errorMessage =
-          "O login por e-mail e senha ainda não está ativado no Firebase.";
+      switch (error.code) {
+        case "auth/invalid-email":
+          errorMessage = "O formato do e-mail é inválido.";
+          break;
+
+        case "auth/user-not-found":
+        case "auth/invalid-credential":
+        case "auth/wrong-password":
+          errorMessage = "E-mail ou senha incorretos.";
+          break;
+
+        case "auth/too-many-requests":
+          errorMessage =
+            "Muitas tentativas. Aguarde um pouco antes de tentar novamente.";
+          break;
+
+        case "auth/network-request-failed":
+          errorMessage =
+            "Falha de conexão. Confira sua internet e tente novamente.";
+          break;
+
+        case "auth/operation-not-allowed":
+          errorMessage =
+            "O login por e-mail e senha não está habilitado no Firebase Authentication.";
+          break;
+
+        case "auth/unauthorized-domain":
+          errorMessage =
+            "Este domínio não está autorizado. Adicione o domínio do site nas configurações do Firebase Authentication.";
+          break;
       }
 
-      showMessage(errorMessage, true);
-
+      showMessage(errorMessage);
     } finally {
-      submitButton.disabled = false;
-      submitButton.textContent = "Entrar no painel →";
+      setLoading(false);
     }
   });
-}
+});
