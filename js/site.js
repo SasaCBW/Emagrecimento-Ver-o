@@ -1,11 +1,9 @@
-/* ==================================================
-   VERÃO FIT — INTERAÇÕES DO SITE
-================================================== */
+import { getPublicSettings } from "./firestore-config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* ==================================================
+  /* =========================================
      MENU PARA CELULAR
-  ================================================== */
+  ========================================= */
 
   const menuButton = document.querySelector("#mobile-menu-button");
   const navigation = document.querySelector("#nav-links");
@@ -15,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const isOpen = navigation.classList.toggle("open");
 
       menuButton.setAttribute("aria-expanded", String(isOpen));
-
       menuButton.setAttribute(
         "aria-label",
         isOpen ? "Fechar menu" : "Abrir menu"
@@ -27,28 +24,16 @@ document.addEventListener("DOMContentLoaded", () => {
     navigation.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
         navigation.classList.remove("open");
-
         menuButton.setAttribute("aria-expanded", "false");
         menuButton.setAttribute("aria-label", "Abrir menu");
-
         menuButton.textContent = "☰";
       });
     });
   }
 
-  /* ==================================================
-     ANO AUTOMÁTICO NO RODAPÉ
-  ================================================== */
-
-  const yearElement = document.querySelector("#current-year");
-
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-  }
-
-  /* ==================================================
+  /* =========================================
      PERGUNTAS FREQUENTES
-  ================================================== */
+  ========================================= */
 
   const faqItems = document.querySelectorAll(".faq-item");
 
@@ -68,8 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       faqItems.forEach((otherItem) => {
         otherItem.classList.remove("active");
 
-        const otherQuestion =
-          otherItem.querySelector(".faq-question");
+        const otherQuestion = otherItem.querySelector(".faq-question");
 
         if (otherQuestion) {
           otherQuestion.setAttribute("aria-expanded", "false");
@@ -78,18 +62,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!wasActive) {
         item.classList.add("active");
-
         question.setAttribute("aria-expanded", "true");
       }
     });
   });
 
-  /* ==================================================
+  /* =========================================
+     ANO AUTOMÁTICO NO RODAPÉ
+  ========================================= */
+
+  const yearElement = document.querySelector("#current-year");
+
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+
+  /* =========================================
      ANIMAÇÕES AO ROLAR A PÁGINA
-  ================================================== */
+  ========================================= */
 
   const animatedElements = document.querySelectorAll(
-    ".benefit-card, .bonus-card, .feature-card, .step-card"
+    ".benefit-card, .bonus-card, .content-card"
   );
 
   if ("IntersectionObserver" in window) {
@@ -98,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
-
             currentObserver.unobserve(entry.target);
           }
         });
@@ -117,11 +109,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ==================================================
-     BOTÕES DE COMPRA
-  ================================================== */
+  /* =========================================
+     LINK DE COMPRA
+  ========================================= */
 
-  document.querySelectorAll("[data-checkout]").forEach((button) => {
+  const checkoutButtons = document.querySelectorAll("[data-checkout]");
+
+  checkoutButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
       const checkoutUrl = button.getAttribute("href");
 
@@ -133,164 +127,133 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
 
         alert(
-          "O link de pagamento ainda não foi configurado. Entre em contato para obter informações sobre a compra."
+          "O link de compra ainda não foi configurado. Entre em contato para obter informações."
         );
       }
     });
   });
 
-  /* ==================================================
-     CONFIGURAÇÕES DO PRODUTO
-  ================================================== */
+  /* =========================================
+     FORMATAÇÃO DE MOEDA
+  ========================================= */
 
-  function loadProductSettings() {
-    let settings = {};
+  function formatCurrency(value) {
+    const amount = Number(value);
 
+    if (!Number.isFinite(amount) || amount < 0) {
+      return null;
+    }
+
+    return amount.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+  }
+
+  /* =========================================
+     ATUALIZAR INFORMAÇÕES DO SITE
+  ========================================= */
+
+  async function loadPublicSettings() {
     try {
-      const stored = localStorage.getItem("veraoFitSettings");
+      const settings = await getPublicSettings();
 
-      if (stored) {
-        const parsed = JSON.parse(stored);
-
-        if (
-          parsed &&
-          typeof parsed === "object" &&
-          !Array.isArray(parsed)
-        ) {
-          settings = parsed;
-        }
-      }
-    } catch (error) {
-      console.warn(
-        "Não foi possível carregar as configurações do produto."
-      );
-    }
-
-    /* Nome do produto */
-
-    document.querySelectorAll("[data-course-name]").forEach((element) => {
-      if (settings.courseName) {
-        element.textContent = settings.courseName;
-      }
-    });
-
-    /* Descrição */
-
-    document
-      .querySelectorAll("[data-course-description]")
-      .forEach((element) => {
-        if (settings.courseDescription) {
-          element.textContent = settings.courseDescription;
-        }
-      });
-
-    /* Preço atual */
-
-    document.querySelectorAll("[data-course-price]").forEach((element) => {
-      if (settings.price !== undefined && settings.price !== "") {
-        const amount = Number(settings.price);
-
-        if (Number.isFinite(amount)) {
-          element.textContent = amount.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-          });
-        }
-      }
-    });
-
-    /* Preço anterior */
-
-    document
-      .querySelectorAll("[data-course-old-price]")
-      .forEach((element) => {
-        if (settings.oldPrice) {
-          const amount = Number(settings.oldPrice);
-
-          if (Number.isFinite(amount)) {
-            element.textContent = amount.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL"
-            });
-          }
-        }
-      });
-
-    /* Link de pagamento */
-
-    if (settings.checkoutUrl) {
-      try {
-        const checkout = new URL(settings.checkoutUrl);
-
-        if (
-          checkout.protocol === "https:" ||
-          checkout.protocol === "http:"
-        ) {
-          document
-            .querySelectorAll("[data-checkout]")
-            .forEach((button) => {
-              button.setAttribute("href", checkout.href);
-              button.setAttribute("target", "_blank");
-              button.setAttribute("rel", "noopener noreferrer");
-            });
-        }
-      } catch (error) {
-        console.warn("O link de pagamento configurado é inválido.");
-      }
-    }
-
-    /* E-mail de contato */
-
-    if (settings.contactEmail) {
-      document.querySelectorAll("[data-contact-email]").forEach((element) => {
-        element.textContent = settings.contactEmail;
-      });
-
-      document
-        .querySelectorAll("[data-contact-link]")
-        .forEach((element) => {
-          element.setAttribute(
-            "href",
-            `mailto:${settings.contactEmail}`
-          );
-        });
-    }
-  }
-
-  loadProductSettings();
-
-  /* ==================================================
-     ATUALIZAR CONFIGURAÇÕES QUANDO A ABA VOLTAR
-  ================================================== */
-
-  window.addEventListener("pageshow", () => {
-    loadProductSettings();
-  });
-
-  /* ==================================================
-     BOTÃO DE VOLTAR AO TOPO
-  ================================================== */
-
-  const backToTop = document.querySelector("#back-to-top");
-
-  if (backToTop) {
-    window.addEventListener(
-      "scroll",
-      () => {
-        backToTop.classList.toggle(
-          "visible",
-          window.scrollY > 400
+      if (!settings) {
+        console.info(
+          "O site ainda está usando as informações padrão."
         );
-      },
-      { passive: true }
-    );
 
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+        return;
+      }
+
+      /* Nome do projeto */
+
+      if (settings.courseName) {
+        document.querySelectorAll("[data-course-name]").forEach((element) => {
+          element.textContent = settings.courseName;
+        });
+
+        document.title = `${settings.courseName} | Seu verão, seu ritmo`;
+      }
+
+      /* Descrição */
+
+      if (settings.courseDescription) {
+        document.querySelectorAll("[data-course-description]").forEach((element) => {
+          element.textContent = settings.courseDescription;
+        });
+      }
+
+      /* Preço atual */
+
+      const currentPrice = formatCurrency(settings.price);
+
+      if (currentPrice) {
+        document.querySelectorAll("[data-course-price]").forEach((element) => {
+          element.textContent = currentPrice;
+        });
+      }
+
+      /* Preço de referência */
+
+      const oldPrice = formatCurrency(settings.oldPrice);
+
+      document.querySelectorAll("[data-course-old-price]").forEach((element) => {
+        if (oldPrice && Number(settings.oldPrice) > Number(settings.price)) {
+          element.textContent = oldPrice;
+          element.hidden = false;
+        } else {
+          element.textContent = "";
+          element.hidden = true;
+        }
       });
-    });
+
+      /* Link de compra */
+
+      document.querySelectorAll("[data-checkout]").forEach((button) => {
+        if (settings.checkoutUrl) {
+          try {
+            const checkout = new URL(settings.checkoutUrl);
+
+            if (checkout.protocol !== "https:") {
+              throw new Error("O link precisa utilizar HTTPS.");
+            }
+
+            button.href = checkout.href;
+            button.setAttribute("target", "_blank");
+            button.setAttribute("rel", "noopener noreferrer");
+            button.setAttribute("aria-label", "Acessar a página de compra");
+          } catch (error) {
+            console.warn("O link de compra não é válido.");
+            button.href = "#comprar";
+          }
+        } else {
+          button.href = "#comprar";
+        }
+      });
+
+      /* E-mail de contato */
+
+      if (settings.contactEmail) {
+        document.querySelectorAll("[data-contact-email]").forEach((element) => {
+          element.textContent = settings.contactEmail;
+        });
+
+        document.querySelectorAll("[data-contact-link]").forEach((element) => {
+          element.href = `mailto:${settings.contactEmail}`;
+        });
+      }
+
+    } catch (error) {
+      console.error(
+        "Não foi possível carregar as configurações públicas:",
+        error
+      );
+
+      // A página mantém seu conteúdo padrão caso o Firestore
+      // esteja indisponível ou ainda não tenha sido configurado.
+    }
   }
 
+  loadPublicSettings();
 });
