@@ -4,93 +4,170 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="description"
-    content="Acesso administrativo do site Verão Fit."
-  >
+  <meta name="theme-color" content="#ef704d">
+  <meta name="robots" content="noindex, nofollow">
 
-  <title>Área Administrativa | Verão Fit</title>
+  <title>Login Administrativo | Verão Fit</title>
 
   <link rel="stylesheet" href="admin.css">
-  <link rel="icon" href="data:,">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%80%EF%B8%8F%3C/text%3E%3C/svg%3E">
 </head>
 
-<body class="admin-login-page">
+<body>
 
-  <main class="admin-login-card">
+  <main class="admin-login-page">
 
-    <div class="admin-login-brand">
-      <div class="admin-brand-icon">☀️</div>
+    <!-- APRESENTAÇÃO -->
+    <section class="admin-login-visual">
 
-      <div class="admin-brand">
-        Verão Fit
-        <small>PAINEL ADMINISTRATIVO</small>
-      </div>
-    </div>
+      <a href="index.html" class="admin-brand" aria-label="Verão Fit">
+        <span class="admin-brand-icon" aria-hidden="true">☀</span>
 
-    <span class="admin-eyebrow">ACESSO RESTRITO</span>
+        <span class="admin-brand-text">
+          Verão Fit
+          <small>Painel administrativo</small>
+        </span>
+      </a>
 
-    <h1>Bem-vinda de volta!</h1>
+      <div class="admin-login-promo">
 
-    <p>
-      Entre com sua conta administrativa para gerenciar
-      as configurações do seu site.
-    </p>
+        <span class="admin-eyebrow">
+          ÁREA RESTRITA
+        </span>
 
-    <form id="login-form" class="admin-form">
+        <h1>
+          Gerencie seu site com praticidade.
+        </h1>
 
-      <div class="admin-field">
-        <label for="email">E-mail administrativo</label>
+        <p>
+          Acesse o painel administrativo do Verão Fit para atualizar as
+          informações públicas do site, revisar os valores apresentados
+          e configurar o endereço de pagamento.
+        </p>
 
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Digite seu e-mail"
-          autocomplete="username"
-          required
-        >
       </div>
 
-      <div class="admin-field">
-        <label for="password">Senha</label>
+      <footer>
+        © <span id="login-year"></span> Verão Fit.
+        Acesso exclusivo ao administrador autorizado.
+      </footer>
 
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Digite sua senha"
-          autocomplete="current-password"
-          required
-        >
+    </section>
+
+
+    <!-- FORMULÁRIO DE LOGIN -->
+    <section class="admin-login-form-side">
+
+      <div class="admin-login-card">
+
+        <a href="index.html" class="admin-brand" aria-label="Voltar ao site">
+          <span class="admin-brand-icon" aria-hidden="true">☀</span>
+
+          <span class="admin-brand-text">
+            Verão Fit
+            <small>Bem-estar e equilíbrio</small>
+          </span>
+        </a>
+
+        <span class="admin-eyebrow">
+          BEM-VINDA(O) DE VOLTA
+        </span>
+
+        <h2>Entrar no painel</h2>
+
+        <p>
+          Informe as credenciais da conta administrativa autorizada
+          para acessar as configurações do site.
+        </p>
+
+        <form id="login-form" class="admin-form" autocomplete="on">
+
+          <div class="admin-field">
+
+            <label class="admin-label" for="email">
+              E-mail administrativo
+            </label>
+
+            <input
+              class="admin-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Digite seu e-mail"
+              autocomplete="username"
+              inputmode="email"
+              maxlength="254"
+              required
+            >
+
+          </div>
+
+
+          <div class="admin-field">
+
+            <label class="admin-label" for="password">
+              Senha
+            </label>
+
+            <input
+              class="admin-input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Digite sua senha"
+              autocomplete="current-password"
+              required
+            >
+
+          </div>
+
+
+          <p
+            id="login-message"
+            class="login-message"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></p>
+
+
+          <div class="admin-form-actions">
+
+            <button
+              type="submit"
+              class="admin-button admin-button-full"
+            >
+              Entrar no painel
+              <span aria-hidden="true">→</span>
+            </button>
+
+          </div>
+
+        </form>
+
+
+        <a href="index.html" class="admin-login-back">
+          <span aria-hidden="true">←</span>
+          Voltar para o site
+        </a>
+
       </div>
 
-      <div
-        id="login-message"
-        class="admin-alert"
-        role="status"
-        aria-live="polite"
-        hidden
-      ></div>
-
-      <button
-        type="submit"
-        class="admin-button"
-      >
-        Entrar no painel →
-      </button>
-
-    </form>
-
-    <a href="index.html" class="admin-back-link">
-      ← Voltar para o site
-    </a>
-
-    <div class="admin-login-footnote">
-      Acesso exclusivo à administração do Verão Fit.
-    </div>
+    </section>
 
   </main>
+
+
+  <script>
+    document.getElementById("login-year").textContent =
+      new Date().getFullYear();
+  </script>
 
   <script type="module" src="js/admin-login.js"></script>
 
